@@ -8,17 +8,7 @@ import { HeroService } from './hero.service'; // import hero service
 @Component({
     moduleId: module.id,
     selector: 'my-hero-detail',
-    template: `
-        <div *ngIf="hero">
-            <h2>{{ hero.name }} details!</h2>
-            <div><label>id: </label>{{ hero.id }}</div>
-            <div>
-                <label>name: </label>
-                <input placeholder="name" [(ngModel)]="hero.name" />
-            </div>
-        </div>
-        <button (click)="goBack()">Back</button>
-    `,
+    templateUrl: 'hero-detail.component.html',
     styleUrls: [ 'hero-detail.component.css' ]
 })
 
@@ -40,6 +30,11 @@ export class HeroDetailComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
+    }
+
+    save(): void {
+        this.heroService.update(this.hero)
+            .then(() => this.goBack());
     }
     
     @Input() // annotation input
